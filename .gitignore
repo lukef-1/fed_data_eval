@@ -1,2 +1,5 @@
 .env
 logs/
+*.ipynb
+
+hello_eval.py
