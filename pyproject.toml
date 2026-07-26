@@ -1,0 +1,15 @@
+[project]
+name = "evals"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.116.0",
+    "datasets>=5.0.0",
+    "httpx>=0.28.1",
+    "inspect-ai>=0.3.244",
+    "ipykernel>=7.3.0",
+    "openai>=2.44.0",
+    "pandas>=3.0.3",
+]

@@ -1,0 +1,722 @@
+[
+    {
+        "input": "What was the Unemployment Rate in the United States in January 2015? Answer with only the number.",
+        "target": 5.7,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in March 2016? Answer with only the number.",
+        "target": 5.0,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in April 2017? Answer with only the number.",
+        "target": 4.4,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in November 2020? Answer with only the number.",
+        "target": 6.7,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in February 2024? Answer with only the number.",
+        "target": 3.9,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in July 2024? Answer with only the number.",
+        "target": 4.2,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in January 2025? Answer with only the number.",
+        "target": 4.0,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in April 2025? Answer with only the number.",
+        "target": 4.2,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Unemployment Rate in the United States in September 2025? Answer with only the number.",
+        "target": 4.4,
+        "series_id": "UNRATE",
+        "series_name": "Unemployment Rate",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in January 2015? Answer with only the number.",
+        "target": 62.9,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in March 2016? Answer with only the number.",
+        "target": 63.0,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in April 2017? Answer with only the number.",
+        "target": 63.0,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in November 2020? Answer with only the number.",
+        "target": 61.5,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in February 2024? Answer with only the number.",
+        "target": 62.6,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in July 2024? Answer with only the number.",
+        "target": 62.7,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in January 2025? Answer with only the number.",
+        "target": 62.6,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in April 2025? Answer with only the number.",
+        "target": 62.6,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Labor Force Participation Rate in the United States in September 2025? Answer with only the number.",
+        "target": 62.5,
+        "series_id": "CIVPART",
+        "series_name": "Labor Force Participation Rate",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.1
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in January 2015? Answer with only the number.",
+        "target": 0.11,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in March 2016? Answer with only the number.",
+        "target": 0.36,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in April 2017? Answer with only the number.",
+        "target": 0.9,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in November 2020? Answer with only the number.",
+        "target": 0.09,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in February 2024? Answer with only the number.",
+        "target": 5.33,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in July 2024? Answer with only the number.",
+        "target": 5.33,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in January 2025? Answer with only the number.",
+        "target": 4.33,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in April 2025? Answer with only the number.",
+        "target": 4.33,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Effective Federal Funds Rate in the United States in September 2025? Answer with only the number.",
+        "target": 4.22,
+        "series_id": "FEDFUNDS",
+        "series_name": "Effective Federal Funds Rate",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.05
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in January 2015? Answer with only the number.",
+        "target": 234.747,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in March 2016? Answer with only the number.",
+        "target": 238.08,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in April 2017? Answer with only the number.",
+        "target": 244.193,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in November 2020? Answer with only the number.",
+        "target": 260.911,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in February 2024? Answer with only the number.",
+        "target": 310.967,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in July 2024? Answer with only the number.",
+        "target": 313.569,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in January 2025? Answer with only the number.",
+        "target": 318.961,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in April 2025? Answer with only the number.",
+        "target": 320.302,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Consumer Price Index: All Urban Consumers, All Items in the United States in September 2025? Answer with only the number.",
+        "target": 324.245,
+        "series_id": "CPIAUCSL",
+        "series_name": "Consumer Price Index: All Urban Consumers, All Items",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in January 2015? Answer with only the number.",
+        "target": 239.811,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in March 2016? Answer with only the number.",
+        "target": 245.913,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in April 2017? Answer with only the number.",
+        "target": 251.227,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in November 2020? Answer with only the number.",
+        "target": 269.981,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in February 2024? Answer with only the number.",
+        "target": 315.564,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in July 2024? Answer with only the number.",
+        "target": 318.94,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in January 2025? Answer with only the number.",
+        "target": 324.638,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in April 2025? Answer with only the number.",
+        "target": 326.467,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the CPI: All Items Less Food and Energy in the United States in September 2025? Answer with only the number.",
+        "target": 330.418,
+        "series_id": "CPILFESL",
+        "series_name": "CPI: All Items Less Food and Energy",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in January 2015? Answer with only the number.",
+        "target": 140568.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in March 2016? Answer with only the number.",
+        "target": 143662.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in April 2017? Answer with only the number.",
+        "target": 146175.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in November 2020? Answer with only the number.",
+        "target": 142733.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in February 2024? Answer with only the number.",
+        "target": 157238.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in July 2024? Answer with only the number.",
+        "target": 157748.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in January 2025? Answer with only the number.",
+        "target": 158268.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in April 2025? Answer with only the number.",
+        "target": 158485.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the Total Nonfarm Payroll Employment in the United States in September 2025? Answer with only the number.",
+        "target": 158548.0,
+        "series_id": "PAYEMS",
+        "series_name": "Total Nonfarm Payroll Employment",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 200
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in January 2015? Answer with only the number.",
+        "target": 1085.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in March 2016? Answer with only the number.",
+        "target": 1111.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in April 2017? Answer with only the number.",
+        "target": 1146.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in November 2020? Answer with only the number.",
+        "target": 1543.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in February 2024? Answer with only the number.",
+        "target": 1555.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in July 2024? Answer with only the number.",
+        "target": 1269.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in January 2025? Answer with only the number.",
+        "target": 1353.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in April 2025? Answer with only the number.",
+        "target": 1400.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the New Privately-Owned Housing Units Started in the United States in September 2025? Answer with only the number.",
+        "target": 1319.0,
+        "series_id": "HOUST",
+        "series_name": "New Privately-Owned Housing Units Started",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 30
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in January 2015? Answer with only the number.",
+        "target": 102.8905,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2015-01-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in March 2016? Answer with only the number.",
+        "target": 98.3096,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2016-03-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in April 2017? Answer with only the number.",
+        "target": 100.0224,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2017-04-01",
+        "period_start": 2015,
+        "period_end": 2019,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in November 2020? Answer with only the number.",
+        "target": 97.0816,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2020-11-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in February 2024? Answer with only the number.",
+        "target": 100.285,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2024-02-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in July 2024? Answer with only the number.",
+        "target": 99.9757,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2024-07-01",
+        "period_start": 2020,
+        "period_end": 2024,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in January 2025? Answer with only the number.",
+        "target": 100.0647,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2025-01-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in April 2025? Answer with only the number.",
+        "target": 101.1279,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2025-04-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    },
+    {
+        "input": "What was the Industrial Production Index in the United States in September 2025? Answer with only the number.",
+        "target": 101.668,
+        "series_id": "INDPRO",
+        "series_name": "Industrial Production Index",
+        "obs_date": "2025-09-01",
+        "period_start": 2025,
+        "period_end": 2025,
+        "tolerance": 0.5
+    }
+]
