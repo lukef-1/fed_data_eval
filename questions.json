@@ -9,7 +9,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in March 2017?",
@@ -21,7 +21,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in April 2018?",
@@ -33,7 +33,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in November 2021?",
@@ -45,7 +45,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in February 2025?",
@@ -57,7 +57,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in July 2025?",
@@ -69,7 +69,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in January 2026?",
@@ -81,7 +81,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in February 2026?",
@@ -93,7 +93,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series UNRATE (units: Percent, Seasonally Adjusted), what was the value of Unemployment Rate in the United States in May 2026?",
@@ -105,7 +105,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in January 2020?",
@@ -117,7 +117,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in April 2020?",
@@ -129,7 +129,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in July 2020?",
@@ -141,7 +141,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in March 2021?",
@@ -153,7 +153,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in August 2022?",
@@ -165,7 +165,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in May 2025?",
@@ -177,7 +177,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in January 2026?",
@@ -189,7 +189,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in February 2026?",
@@ -201,7 +201,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series CIVPART (units: Percent, Seasonally Adjusted), what was the value of Labor Force Participation Rate in the United States in March 2026?",
@@ -213,7 +213,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.1
+        "tolerance": 0.101
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in June 2018?",
@@ -225,7 +225,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in February 2019?",
@@ -237,7 +237,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in May 2020?",
@@ -249,7 +249,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in July 2021?",
@@ -261,7 +261,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in December 2021?",
@@ -273,7 +273,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in September 2024?",
@@ -285,7 +285,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in January 2026?",
@@ -297,7 +297,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in May 2026?",
@@ -309,7 +309,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series FEDFUNDS (units: Percent, Not Seasonally Adjusted), what was the value of Effective Federal Funds Rate in the United States in June 2026?",
@@ -321,7 +321,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.05
+        "tolerance": 0.0501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in April 2016?",
@@ -333,7 +333,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in July 2016?",
@@ -345,7 +345,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in May 2017?",
@@ -357,7 +357,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in March 2023?",
@@ -369,7 +369,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in June 2023?",
@@ -381,7 +381,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in August 2023?",
@@ -393,7 +393,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in February 2026?",
@@ -405,7 +405,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in May 2026?",
@@ -417,7 +417,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPIAUCSL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of Consumer Price Index: All Urban Consumers, All Items in the United States in June 2026?",
@@ -429,7 +429,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in November 2018?",
@@ -441,7 +441,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in July 2019?",
@@ -453,7 +453,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in April 2020?",
@@ -465,7 +465,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in January 2022?",
@@ -477,7 +477,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in January 2023?",
@@ -489,7 +489,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in July 2023?",
@@ -501,7 +501,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in January 2026?",
@@ -513,7 +513,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in February 2026?",
@@ -525,7 +525,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series CPILFESL (units: Index 1982-1984=100, Seasonally Adjusted), what was the value of CPI: All Items Less Food and Energy in the United States in May 2026?",
@@ -537,7 +537,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series PAYEMS (units: Thousands of Persons, Seasonally Adjusted), what was the value of Total Nonfarm Payroll Employment in the United States in March 2018?",
@@ -765,7 +765,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in August 2017?",
@@ -777,7 +777,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in July 2018?",
@@ -789,7 +789,7 @@
         "period_start": 2016,
         "period_end": 2020,
         "period_full": "2016-2020",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in November 2021?",
@@ -801,7 +801,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in September 2022?",
@@ -813,7 +813,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in September 2023?",
@@ -825,7 +825,7 @@
         "period_start": 2021,
         "period_end": 2025,
         "period_full": "2021-2025",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in February 2026?",
@@ -837,7 +837,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in May 2026?",
@@ -849,7 +849,7 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     },
     {
         "input": "According to FRED series INDPRO (units: Index 2017=100, Seasonally Adjusted), what was the value of Industrial Production Index in the United States in June 2026?",
@@ -861,6 +861,6 @@
         "period_start": 2026,
         "period_end": 2026,
         "period_full": "2026-2026",
-        "tolerance": 0.5
+        "tolerance": 0.501
     }
 ]

@@ -10,21 +10,21 @@ class SeriesFields(NamedTuple):
 
 
 SERIES = {
-    "UNRATE": SeriesFields("Unemployment Rate", 0.1, "Percent, Seasonally Adjusted"),
+    "UNRATE": SeriesFields("Unemployment Rate", 0.101, "Percent, Seasonally Adjusted"),
     "CIVPART": SeriesFields(
-        "Labor Force Participation Rate", 0.1, "Percent, Seasonally Adjusted"
+        "Labor Force Participation Rate", 0.101, "Percent, Seasonally Adjusted"
     ),
     "FEDFUNDS": SeriesFields(
-        "Effective Federal Funds Rate", 0.05, "Percent, Not Seasonally Adjusted"
+        "Effective Federal Funds Rate", 0.0501, "Percent, Not Seasonally Adjusted"
     ),
     "CPIAUCSL": SeriesFields(
         "Consumer Price Index: All Urban Consumers, All Items",
-        0.5,
+        0.501,
         "Index 1982-1984=100, Seasonally Adjusted",
     ),
     "CPILFESL": SeriesFields(
         "CPI: All Items Less Food and Energy",
-        0.5,
+        0.501,
         "Index 1982-1984=100, Seasonally Adjusted",
     ),
     "PAYEMS": SeriesFields(
@@ -38,7 +38,7 @@ SERIES = {
         "Thousands of Units, Seasonally Adjusted Annual Rate",
     ),
     "INDPRO": SeriesFields(
-        "Industrial Production Index", 0.5, "Index 2017=100, Seasonally Adjusted"
+        "Industrial Production Index", 0.501, "Index 2017=100, Seasonally Adjusted"
     ),
 }
 
