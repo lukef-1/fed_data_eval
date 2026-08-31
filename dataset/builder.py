@@ -1,7 +1,6 @@
 """Builds the questions.json file by making a series of FRED API calls."""
 
 import json
-import os
 import random
 from dataclasses import asdict
 from datetime import date, datetime
@@ -9,6 +8,7 @@ from time import sleep
 
 import httpx
 from constants import (
+    API_KEY,
     FRED_START_DATE,
     FRED_URL,
     MONTHS,
@@ -19,11 +19,8 @@ from constants import (
     YEARS,
     ObservationEntry,
 )
-from dotenv import load_dotenv
 
 random.seed(RANDOM_SEED)
-load_dotenv()
-API_KEY = os.getenv("FRED_API_KEY")
 
 
 def call_fred_api(series_id: str) -> list[dict[str, str]]:

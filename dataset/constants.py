@@ -2,6 +2,12 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import NamedTuple
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv("FRED_API_KEY")
+
 
 class SeriesFields(NamedTuple):
     name: str
@@ -63,7 +69,7 @@ class ObservationEntry:
     series_id: str
     series_name: str
     units: str
-    obs_date: date | str
+    obs_date: date
     period_start: int
     period_end: int
     period_full: str = field(init=False)
