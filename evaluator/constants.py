@@ -16,6 +16,9 @@ If you do not know the value, reply ANSWER: UNKNOWN"""
 TOOL_PROMPT = """Use the get_data() tool with the provided parameters to find the value.
 Answer in the format ANSWER: <number>."""
 
+WEB_SEARCH_PROMPT = """Use the web_search() tool to find the value.
+Answer in the format ANSWER: <number>."""
+
 
 class NoNumber(Enum):
     NO_ANSWER = "no answer"

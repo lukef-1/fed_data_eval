@@ -1,4 +1,12 @@
-from constants import CLOSED_BOOK_PROMPT, TOOL_PROMPT, NoNumber, extract_number, FRED_URL, API_KEY
+from constants import (
+    CLOSED_BOOK_PROMPT,
+    TOOL_PROMPT,
+    WEB_SEARCH_PROMPT,
+    NoNumber,
+    extract_number,
+    FRED_URL,
+    API_KEY,
+)
 
 import asyncio
 import httpx
@@ -21,7 +29,7 @@ from inspect_ai.scorer import (
     includes,
 )
 from inspect_ai.solver import TaskState, generate, system_message, use_tools
-from inspect_ai.tool import tool
+from inspect_ai.tool import tool, web_search
 
 
 @scorer(metrics=[grouped(accuracy(), "period_full"), frequency(), stderr()])
@@ -99,7 +107,7 @@ def get_data():
 
         if not observations:
             return f"No observation found for {series_id} on {date}."
-        
+
         date = observations[-1]["date"]
         value = observations[-1]["value"]
 
@@ -156,5 +164,22 @@ def fred_api_test_custom():
             ),
         ),
         solver=[system_message(TOOL_PROMPT), use_tools(get_data()), generate()],
+        scorer=within_margin(),
+    )
+
+
+@task
+def web_search_test_custom():
+    return Task(
+        dataset=json_dataset(
+            "../questions.json",
+            FieldSpec(
+                input="input",
+                target="target",
+                id="question_id",
+                metadata=["series_id", "series_name", "period_full", "tolerance"],
+            ),
+        ),
+        solver=[system_message(WEB_SEARCH_PROMPT), use_tools(web_search()), generate()],
         scorer=within_margin(),
     )
