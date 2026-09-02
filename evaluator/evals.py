@@ -25,7 +25,6 @@ from inspect_ai.scorer import (
     grouped,
     scorer,
     stderr,
-    includes,
 )
 from inspect_ai.solver import TaskState, generate, system_message, use_tools
 from inspect_ai.tool import tool, web_search
@@ -113,25 +112,6 @@ def call_fred_api():
         return f"The value for {series_id} on {date} was {value}"
 
     return get_single_fred_value
-
-
-# Keeping as an example of a flawed approach for the writeup
-@task
-def closed_book_test():
-    return Task(
-        dataset=json_dataset(
-            "../questions.json",
-            # Using FieldSpec to get metadata fields
-            FieldSpec(
-                input="input",
-                target="target",
-                id="question_id",
-                metadata=["series_id", "series_name", "period_full"],
-            ),
-        ),
-        solver=[system_message(CLOSED_BOOK_PROMPT), generate()],
-        scorer=includes(),
-    )
 
 
 @task
