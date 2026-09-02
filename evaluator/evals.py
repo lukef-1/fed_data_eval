@@ -10,7 +10,6 @@ from constants import (
 
 import asyncio
 import httpx
-import time
 import json
 
 from inspect_ai import Task, task
@@ -71,7 +70,7 @@ def within_margin():
 
 
 @tool
-def get_data():
+def call_fred_api():
     async def get_single_fred_value(series_id: str, date: str) -> str:
         """
         Returns the value for a specific FRED series in a specific month.
@@ -116,6 +115,7 @@ def get_data():
     return get_single_fred_value
 
 
+# Keeping as an example of a flawed approach for the writeup
 @task
 def closed_book_test():
     return Task(
@@ -163,7 +163,7 @@ def fred_api_test_custom():
                 metadata=["series_id", "series_name", "period_full", "tolerance"],
             ),
         ),
-        solver=[system_message(TOOL_PROMPT), use_tools(get_data()), generate()],
+        solver=[system_message(TOOL_PROMPT), use_tools(call_fred_api()), generate()],
         scorer=within_margin(),
     )
 

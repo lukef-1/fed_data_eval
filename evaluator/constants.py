@@ -13,7 +13,7 @@ FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
 CLOSED_BOOK_PROMPT = """Answer in the format ANSWER: <number>
 If you do not know the value, reply ANSWER: UNKNOWN"""
 
-TOOL_PROMPT = """Use the get_data() tool with the provided parameters to find the value.
+TOOL_PROMPT = """Use the call_fred_api() tool with the provided parameters to find the value.
 Answer in the format ANSWER: <number>."""
 
 WEB_SEARCH_PROMPT = """Use the web_search() tool to find the value.
@@ -30,7 +30,7 @@ def extract_number(text: str) -> float | NoNumber:
 
     text = text.lower()
 
-    if "answer" not in text:
+    if "answer:" not in text:
         return NoNumber.NO_ANSWER
 
     # Remove commas up front to make regex easier

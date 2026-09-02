@@ -74,6 +74,7 @@ class ObservationEntry:
     period_end: int
     period_full: str = field(init=False)
     tolerance: float
+    question_id: str = field(init=False)
 
     def __post_init__(self):
         obs_date_str = self.obs_date.strftime("%B %Y")
@@ -83,3 +84,5 @@ class ObservationEntry:
 
         # Generate a single time period field
         self.period_full = f"{self.period_start}-{self.period_end}"
+
+        self.question_id = f"{self.series_id}_{self.obs_date}"

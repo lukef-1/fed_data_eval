@@ -39,3 +39,7 @@ def test_regex_unknown_number():
         extract_number("ANSWER: UNKNOWN. I do not have information on 2019.")
         == NoNumber.UNKNOWN
     )
+
+
+def test_regex_answer_word_no_colon():
+    assert extract_number("I don't have the answer for July 2016") == NoNumber.NO_ANSWER

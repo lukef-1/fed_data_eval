@@ -39,8 +39,7 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
     response.raise_for_status()
     data = response.json()
 
-    # `observations` key contains a list of all periods and data
-    return data.get("observations")
+    return data["observations"]
 
 
 def get_random_period_dates(period_start: int, period_end: int) -> list[date]:
@@ -53,6 +52,7 @@ def get_random_period_dates(period_start: int, period_end: int) -> list[date]:
 
     while len(period_dates) < OBS_PER_PERIOD:
         year = random.randint(period_start, period_end)
+
         if year == 2026:
             month = random.choice(MONTHS_2026)
         else:
