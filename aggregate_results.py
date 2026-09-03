@@ -22,8 +22,8 @@ def main():
 
     df["score_quant"] = (df["score_within_margin"] == "C").astype(int)
 
-    success_rate_overall = df.groupby("eval_name")["score_quant"].agg(mean="mean", std="std")
-    success_rate_year = df.groupby(["eval_name", "metadata_period_full"])["score_quant"].agg(mean="mean", std="std")
+    success_rate_overall = df.groupby("eval_name")["score_quant"].agg(mean="mean", se="sem")
+    success_rate_year = df.groupby(["eval_name", "metadata_period_full"])["score_quant"].agg(mean="mean", se="sem")
 
     response_dist_overall = df.groupby("eval_name")["score_within_margin"].value_counts(normalize=True)
     response_dist_year = df.groupby(["eval_name", "metadata_period_full"])["score_within_margin"].value_counts(normalize=True)
@@ -31,7 +31,7 @@ def main():
     print("\nSuccess Rates - Overall")
     print(success_rate_overall)
 
-    print("\nSucess Rates - By Year")
+    print("\nSuccess Rates - By Year")
     print(success_rate_year)
 
     print("\nResponse Distribution - Overall")
