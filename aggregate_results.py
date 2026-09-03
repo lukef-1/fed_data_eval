@@ -4,8 +4,9 @@ import pandas as pd
 # Found these in a notebook using `evals_df("logs")`
 EVAL_IDS = {
     "oWzumHzFzS4ojAsLjjeqyn": "sonnet_llm",
-    "2NG6C7iCTb2PK7tCVFB766": "sonnet_llm_api" ,
-    "mNVCg8EadPfu9BdfyqxxHU": "gemma_llm"
+    "2NG6C7iCTb2PK7tCVFB766": "sonnet_llm_api",
+    "mNVCg8EadPfu9BdfyqxxHU": "gemma_llm",
+    "ezTAEY8ikdeNLyvMzCeoy2": "gemma_llm_api"
 }
 
 COLUMNS_TO_KEEP = ["eval_name", "id", "epoch", "input", "target", "metadata_period_full", 
