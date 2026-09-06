@@ -6,12 +6,25 @@ EVAL_IDS = {
     "oWzumHzFzS4ojAsLjjeqyn": "sonnet_llm",
     "2NG6C7iCTb2PK7tCVFB766": "sonnet_llm_api",
     "mNVCg8EadPfu9BdfyqxxHU": "gemma_llm",
-    "ezTAEY8ikdeNLyvMzCeoy2": "gemma_llm_api"
+    "ezTAEY8ikdeNLyvMzCeoy2": "gemma_llm_api",
 }
 
-COLUMNS_TO_KEEP = ["eval_name", "id", "epoch", "input", "target", "metadata_period_full", 
-                   "metadata_series_id", "metadata_series_name", "metadata_tolerance", 
-                   "score_within_margin", "total_tokens", "total_time", "working_time"]
+COLUMNS_TO_KEEP = [
+    "eval_name",
+    "id",
+    "epoch",
+    "input",
+    "target",
+    "metadata_period_full",
+    "metadata_series_id",
+    "metadata_series_name",
+    "metadata_tolerance",
+    "score_within_margin",
+    "total_tokens",
+    "total_time",
+    "working_time",
+]
+
 
 def main():
     """Load Inspect logs into a DataFrame, performing and printing basic analyses."""
@@ -22,11 +35,19 @@ def main():
 
     df["score_quant"] = (df["score_within_margin"] == "C").astype(int)
 
-    success_rate_overall = df.groupby("eval_name")["score_quant"].agg(mean="mean", se="sem")
-    success_rate_year = df.groupby(["eval_name", "metadata_period_full"])["score_quant"].agg(mean="mean", se="sem")
+    success_rate_overall = df.groupby("eval_name")["score_quant"].agg(
+        mean="mean", se="sem"
+    )
+    success_rate_year = df.groupby(["eval_name", "metadata_period_full"])[
+        "score_quant"
+    ].agg(mean="mean", se="sem")
 
-    response_dist_overall = df.groupby("eval_name")["score_within_margin"].value_counts(normalize=True)
-    response_dist_year = df.groupby(["eval_name", "metadata_period_full"])["score_within_margin"].value_counts(normalize=True)
+    response_dist_overall = df.groupby("eval_name")["score_within_margin"].value_counts(
+        normalize=True
+    )
+    response_dist_year = df.groupby(["eval_name", "metadata_period_full"])[
+        "score_within_margin"
+    ].value_counts(normalize=True)
 
     print("\nSuccess Rates - Overall")
     print(success_rate_overall)

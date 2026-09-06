@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import datetime
 from typing import NamedTuple
 
 import os
@@ -49,10 +49,8 @@ SERIES = {
 }
 
 YEARS = [(2016, 2020), (2021, 2025), (2026, 2026)]
-MONTHS = [m for m in range(1, 13)]
-MONTHS_2026 = [m for m in range(1, 7)]
 
-OBS_PER_PERIOD = 3
+OBS_PER_PERIOD = 5
 
 FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
 FRED_START_DATE = "2016-01-01"
@@ -69,7 +67,7 @@ class ObservationEntry:
     series_id: str
     series_name: str
     units: str
-    obs_date: date
+    obs_date: str
     period_start: int
     period_end: int
     period_full: str = field(init=False)
@@ -77,7 +75,8 @@ class ObservationEntry:
     question_id: str = field(init=False)
 
     def __post_init__(self):
-        obs_date_str = self.obs_date.strftime("%B %Y")
+        obs_date_dt = datetime.strptime(self.obs_date, "%Y-%m-%d")
+        obs_date_str = obs_date_dt.strftime("%B %Y")
 
         # Dynamically generate the prompt
         self.input = f"According to FRED series {self.series_id} (units: {self.units}), what was the value of {self.series_name} in the United States in {obs_date_str}?"
