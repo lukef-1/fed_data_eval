@@ -1,4 +1,4 @@
-from .schema import NoNumber
+from schema import NoNumber
 import re
 
 

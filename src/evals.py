@@ -1,6 +1,6 @@
-from .constants import FRED_URL, API_KEY
+from constants import FRED_URL, API_KEY
 
-from .scoring import (
+from scoring import (
     CLOSED_BOOK_PROMPT,
     TOOL_PROMPT,
     WEB_SEARCH_PROMPT,
@@ -40,7 +40,21 @@ def within_margin():
         tolerance = state.metadata["tolerance"]
 
         response = extract_number(raw_response)
-        expected = float(target.text)
+        expected = target.text
+
+        if (expected == NoNumber.INVALID.value) and (response == NoNumber.INVALID):
+            return Score(
+                value=CORRECT,
+                answer=raw_response,
+                explanation="Model correctly identified an invalid request.",
+            )
+
+        if (expected == NoNumber.INVALID.value) or (response == NoNumber.INVALID):
+                return Score(
+                    value=INCORRECT,
+                    answer=raw_response,
+                    explanation="Invalid incorrectly expected / returned",
+                )
 
         if response == NoNumber.NO_ANSWER:
             return Score(
@@ -56,21 +70,7 @@ def within_margin():
                 explanation="Model stated that answer was unknown.",
             )
 
-        elif response == NoNumber.INVALID:
-            if response == target:
-                return Score(
-                    value=CORRECT,
-                    answer=raw_response,
-                    explanation="Model correctly identified an invalid request.",
-                )
-            else:
-                return Score(
-                    value=INCORRECT,
-                    answer=raw_response,
-                    explanation="Model incorrectly stated the request was invalid.",
-                )
-
-        correct = abs(response - expected) <= tolerance
+        correct = abs(response - float(expected)) <= tolerance
         explanation = f"Response: {response} - Expected: {expected} - Tolerance: {tolerance} - Correct: {correct}"
         print(explanation)
         return Score(

@@ -9,7 +9,7 @@ from time import sleep
 from pathlib import Path
 
 import httpx
-from .constants import (
+from constants import (
     API_KEY,
     FRED_START_DATE,
     FRED_URL,
@@ -21,7 +21,7 @@ from .constants import (
     NUM_OOB_PER_CATEGORY
 )
 
-from .schema import ObservationRaw, ObservationEntry, NoNumber, TestType
+from schema import ObservationRaw, ObservationEntry, NoNumber, TestType
 
 random.seed(RANDOM_SEED)
 
@@ -73,8 +73,6 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
     return data_dict["observations"]
 
 
-# LOTS OF PASSING VARIABLES AROUND, MAKE A CLASS?
-
 class SeriesDatasetLoader:
     def __init__(
             self,
@@ -98,16 +96,12 @@ class SeriesDatasetLoader:
 
     def sort_observations(self) -> None:
         """
-        Select a random subset of observations from a single series using specified
-        time periods.
+        Sort all observations for a series into lists according to each time period.
         """
 
-        # Build list of all observations per period
         for observation in self.series_observations:
             if observation["value"] == ".":
                 continue
-
-            obs_date = datetime.strptime(observation["date"], "%Y-%m-%d")
 
             obs_raw = ObservationRaw(
                 realtime_start = observation.get("realtime_start"),
@@ -117,27 +111,36 @@ class SeriesDatasetLoader:
                 test_type = TestType.IN_SCOPE.value
             )
 
+            obs_date = datetime.strptime(observation["date"], "%Y-%m-%d")
+
             for period_start, period_end in YEARS:
                 if period_start <= obs_date.year <= period_end:
                     self.year_buckets[(period_start, period_end)].append(obs_raw)
 
-        return None
+    def get_sampled_observations(self) -> None:
+        """
+        Select a random subset of observations for each time period.
+        """
 
-    def get_random_observations(self) -> None:
         for (period_start, period_end), bucket in self.year_buckets.items():
             print(f"Sampling for period: {period_start} - {period_end}")
 
             random_observations = random.sample(bucket, OBS_PER_PERIOD)
             self.sampled_observations[(period_start, period_end)].extend(random_observations)
 
+
     def add_out_of_bounds_entries(self) -> None:
+        """
+        Add entries with invalid dates and invalid expected answers to the list
+        of sampled observations.
+        """
 
         for period_start, period_end in OOB_RANGES:
             observations: list[ObservationRaw] = []
+            possible_dates = [(m, y) for m in range(1, 12) for y in range(period_start, period_end)]
 
-            for _ in range(NUM_OOB_PER_CATEGORY):
-                year = random.randint(period_start, period_end)
-                month = random.randint(1, 12)
+            random_dates = random.sample(possible_dates, k=NUM_OOB_PER_CATEGORY)
+            for month, year in random_dates:
                 d = datetime(year, month, 1).date()
 
                 observations.append(
@@ -154,6 +157,10 @@ class SeriesDatasetLoader:
 
 
     def build_observation_entries(self) -> None:
+        """
+        Turns a list of sampled observations into a list of final SeriesObservations.
+        """
+
         for (period_start, period_end), observations in self.sampled_observations.items():
 
             for observation in observations:
@@ -172,91 +179,9 @@ class SeriesDatasetLoader:
                 )
 
 
-def get_random_observations(
-    series_observations: list[dict[str, str]],
-    series_id: str,
-    series_name: str,
-    tolerance: float,
-    units: str,
-) -> list[ObservationEntry]:
-    """
-    Select a random subset of observations from a single series using specified
-    time periods.
-    """
-
-    buckets = {period: [] for period in YEARS}
-    final_observations = []
-
-    # Build list of all observations per period
-    for observation in series_observations:
-        if observation["value"] == ".":
-            continue
-
-        obs_date = datetime.strptime(observation["date"], "%Y-%m-%d")
-        year = obs_date.year
-
-        for period_start, period_end in YEARS:
-            if period_start <= year <= period_end:
-                buckets[(period_start, period_end)].append(observation)
-
-    # Sample from each period's observations list
-    for (period_start, period_end), bucket in buckets.items():
-        print(f"Sampling for period: {period_start} - {period_end}")
-        sampled_observations = random.sample(bucket, OBS_PER_PERIOD)
-
-        for obs in sampled_observations:
-            final_observations.append(
-                ObservationEntry(
-                    target=float(obs["value"]),
-                    series_id=series_id,
-                    series_name=series_name,
-                    units=units,
-                    obs_date=datetime.strptime(obs["date"], "%Y-%m-%d").date(),
-                    period_start=period_start,
-                    period_end=period_end,
-                    tolerance=tolerance,
-                    test_type=TestType.IN_SCOPE.value
-                )
-            )
-  
-    return final_observations
-
-
-def add_out_of_bounds(
-    series_id: str,
-    series_name: str,
-    tolerance: float,
-    units: str,
-) -> list[ObservationEntry]:
-    """Adds out-of-bounds observations for PRE and POST valid date entries."""
-
-    print("Adding out-of-bounds observations")
-    oob_observations = []
-
-    for start_year, end_year in OOB_RANGES:
-        for _ in range(NUM_OOB_PER_CATEGORY):
-            year = random.randint(start_year, end_year)
-            month = random.randint(1, 12)
-
-            oob_observations.append(
-                ObservationEntry(
-                    target=NoNumber.INVALID,
-                    series_id=series_id,
-                    series_name=series_name,
-                    units=units,
-                    obs_date = datetime(year, month, 1).date(),
-                    period_start=start_year,
-                    period_end=end_year,
-                    tolerance=tolerance,
-                    test_type=TestType.OUT_OF_SCOPE.value
-                )
-            )
-
-    return oob_observations
-
-
 def write_to_json(all_observations: list[ObservationEntry], file_name: str) -> None:
-    """Writes a list of observation entries to JSON"""
+    "Writes all select observations across series to a JSON file."
+
     obs_dict = [asdict(obs) for obs in all_observations]
 
     with open(file_name, "w") as f:
@@ -273,19 +198,22 @@ def main():
         tolerance = SERIES[series_id].tolerance
         units = SERIES[series_id].units
 
-        # Get all series observations
         series_observations = call_fred_api(series_id)
 
-        # Add random observations to final list
-        all_observations.extend(
-            get_random_observations(
-                series_observations, series_id, series_name, tolerance, units
-            )
+        series_loader = SeriesDatasetLoader(
+            series_observations=series_observations,
+            series_id=series_id,
+            series_name=series_name,
+            tolerance=tolerance,
+            units=units
         )
 
-        all_observations.extend(
-            add_out_of_bounds(series_id, series_name, tolerance, units)
-        )
+        series_loader.sort_observations()
+        series_loader.get_sampled_observations()
+        series_loader.add_out_of_bounds_entries()
+        series_loader.build_observation_entries()
+
+        all_observations.extend(series_loader.final_observations)
 
     write_to_json(all_observations, "questions.json")
 

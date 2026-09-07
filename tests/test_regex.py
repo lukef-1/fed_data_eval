@@ -1,4 +1,4 @@
-from src.constants import extract_number, NoNumber
+from ..src.constants import extract_number, NoNumber
 
 
 def test_regex_basic():
