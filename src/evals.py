@@ -1,11 +1,11 @@
-from constants import (
+from constants import FRED_URL, API_KEY
+
+from scoring import (
     CLOSED_BOOK_PROMPT,
     TOOL_PROMPT,
     WEB_SEARCH_PROMPT,
     NoNumber,
-    extract_number,
-    FRED_URL,
-    API_KEY,
+    extract_number
 )
 
 import asyncio
@@ -55,6 +55,20 @@ def within_margin():
                 answer=raw_response,
                 explanation="Model stated that answer was unknown.",
             )
+
+        elif response == NoNumber.INVALID:
+            if response == target:
+                return Score(
+                    value=CORRECT,
+                    answer=raw_response,
+                    explanation="Model correctly identified an invalid request.",
+                )
+            else:
+                return Score(
+                    value=INCORRECT,
+                    answer=raw_response,
+                    explanation="Model incorrectly stated the request was invalid.",
+                )
 
         correct = abs(response - expected) <= tolerance
         explanation = f"Response: {response} - Expected: {expected} - Tolerance: {tolerance} - Correct: {correct}"
@@ -123,7 +137,7 @@ def closed_book_test_custom():
                 input="input",
                 target="target",
                 id="question_id",
-                metadata=["series_id", "series_name", "period_full", "tolerance"],
+                metadata=["series_id", "series_name", "period_full", "tolerance", "test_type"],
             ),
         ),
         solver=[system_message(CLOSED_BOOK_PROMPT), generate()],
@@ -140,7 +154,7 @@ def fred_api_test_custom():
                 input="input",
                 target="target",
                 id="question_id",
-                metadata=["series_id", "series_name", "period_full", "tolerance"],
+                metadata=["series_id", "series_name", "period_full", "tolerance", "test_type"],
             ),
         ),
         solver=[system_message(TOOL_PROMPT), use_tools(call_fred_api()), generate()],
@@ -157,7 +171,7 @@ def web_search_test_custom():
                 input="input",
                 target="target",
                 id="question_id",
-                metadata=["series_id", "series_name", "period_full", "tolerance"],
+                metadata=["series_id", "series_name", "period_full", "tolerance", "test_type"],
             ),
         ),
         solver=[system_message(WEB_SEARCH_PROMPT), use_tools(web_search()), generate()],

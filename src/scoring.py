@@ -1,28 +1,18 @@
+from schema import NoNumber
 import re
-from enum import Enum
-
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-API_KEY = os.getenv("FRED_API_KEY")
-
-FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
 
 
 CLOSED_BOOK_PROMPT = """Answer in the format ANSWER: <number>
-If you do not know the value, reply ANSWER: UNKNOWN"""
+If you do not know the value, reply ANSWER: UNKNOWN. If the question asks about a
+date that is not available in St. Louis Fed (FRED) data, reply ANSWER: INVALID"""
 
 TOOL_PROMPT = """Use the call_fred_api() tool with the provided parameters to find the value.
-Answer in the format ANSWER: <number>."""
+Answer in the format ANSWER: <number>. If the question asks about a
+date that is not available in St. Louis Fed (FRED) data, reply ANSWER: INVALID"""
 
 WEB_SEARCH_PROMPT = """Use the web_search() tool to find the value.
-Answer in the format ANSWER: <number>."""
-
-
-class NoNumber(Enum):
-    NO_ANSWER = "no answer"
-    UNKNOWN = "unknown"
+Answer in the format ANSWER: <number>. If the question asks about a
+date that is not available in St. Louis Fed (FRED) data, reply ANSWER: INVALID"""
 
 
 def extract_number(text: str) -> float | NoNumber:
@@ -37,6 +27,9 @@ def extract_number(text: str) -> float | NoNumber:
     answer = text.split("answer:")[-1].replace(",", "")
     if "unknown" in answer:
         return NoNumber.UNKNOWN
+
+    if "invalid" in answer:
+        return NoNumber.INVALID
 
     match = re.search(r"-?\d+\.?\d*", answer)
     if match:

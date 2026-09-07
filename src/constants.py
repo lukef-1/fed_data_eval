@@ -1,6 +1,4 @@
-from dataclasses import dataclass, field
-from datetime import datetime
-from typing import NamedTuple
+from schema import SeriesFields
 
 import os
 from dotenv import load_dotenv
@@ -8,12 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY = os.getenv("FRED_API_KEY")
 
-
-class SeriesFields(NamedTuple):
-    name: str
-    tolerance: float
-    units: str
-
+FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
+FRED_START_DATE = "2016-01-01"
 
 SERIES = {
     "UNRATE": SeriesFields("Unemployment Rate", 0.101, "Percent, Seasonally Adjusted"),
@@ -49,39 +43,11 @@ SERIES = {
 }
 
 YEARS = [(2016, 2020), (2021, 2025), (2026, 2026)]
-
 OBS_PER_PERIOD = 5
 
-FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
-FRED_START_DATE = "2016-01-01"
+# Defines years for PRE and POST out-of-bounds samples + the number of each to include per series.
+OOB_RANGES = [(1900, 1920), (2030, 2050)]
+NUM_OOB_PER_CATEGORY = 3
 
 RANDOM_SEED = 42
 
-
-@dataclass
-class ObservationEntry:
-    """Class for a question with a golden response from an API response."""
-
-    input: str = field(init=False)
-    target: float
-    series_id: str
-    series_name: str
-    units: str
-    obs_date: str
-    period_start: int
-    period_end: int
-    period_full: str = field(init=False)
-    tolerance: float
-    question_id: str = field(init=False)
-
-    def __post_init__(self):
-        obs_date_dt = datetime.strptime(self.obs_date, "%Y-%m-%d")
-        obs_date_str = obs_date_dt.strftime("%B %Y")
-
-        # Dynamically generate the prompt
-        self.input = f"According to FRED series {self.series_id} (units: {self.units}), what was the value of {self.series_name} in the United States in {obs_date_str}?"
-
-        # Generate a single time period field
-        self.period_full = f"{self.period_start}-{self.period_end}"
-
-        self.question_id = f"{self.series_id}_{self.obs_date}"

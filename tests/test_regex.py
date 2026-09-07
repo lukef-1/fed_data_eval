@@ -1,5 +1,4 @@
-from evaluator.constants import extract_number
-from evaluator.constants import NoNumber
+from src.constants import extract_number, NoNumber
 
 
 def test_regex_basic():

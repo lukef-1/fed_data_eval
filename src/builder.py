@@ -17,8 +17,11 @@ from constants import (
     RANDOM_SEED,
     SERIES,
     YEARS,
-    ObservationEntry,
+    OOB_RANGES,
+    NUM_OOB_PER_CATEGORY
 )
+
+from schema import ObservationEntry, NoNumber, TestType
 
 random.seed(RANDOM_SEED)
 
@@ -70,6 +73,8 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
     return data_dict["observations"]
 
 
+# LOTS OF PASSING VARIABLES AROUND, MAKE A CLASS?
+
 def get_random_observations(
     series_observations: list[dict[str, str]],
     series_id: str,
@@ -109,14 +114,48 @@ def get_random_observations(
                     series_id=series_id,
                     series_name=series_name,
                     units=units,
-                    obs_date=obs["date"],
+                    obs_date=datetime.strptime(obs["date"], "%Y-%m-%d").date(),
                     period_start=period_start,
                     period_end=period_end,
                     tolerance=tolerance,
+                    test_type=TestType.IN_SCOPE.value
+                )
+            )
+  
+    return final_observations
+
+
+def add_out_of_bounds(
+    series_id: str,
+    series_name: str,
+    tolerance: float,
+    units: str,
+) -> list[ObservationEntry]:
+    """Adds out-of-bounds observations for PRE and POST valid date entries."""
+
+    print("Adding out-of-bounds observations")
+    oob_observations = []
+
+    for start_year, end_year in OOB_RANGES:
+        for _ in range(NUM_OOB_PER_CATEGORY):
+            year = random.randint(start_year, end_year)
+            month = random.randint(1, 12)
+
+            oob_observations.append(
+                ObservationEntry(
+                    target=NoNumber.INVALID,
+                    series_id=series_id,
+                    series_name=series_name,
+                    units=units,
+                    obs_date = datetime(year, month, 1).date(),
+                    period_start=start_year,
+                    period_end=end_year,
+                    tolerance=tolerance,
+                    test_type=TestType.OUT_OF_SCOPE.value
                 )
             )
 
-    return final_observations
+    return oob_observations
 
 
 def write_to_json(all_observations: list[ObservationEntry], file_name: str) -> None:
@@ -145,6 +184,10 @@ def main():
             get_random_observations(
                 series_observations, series_id, series_name, tolerance, units
             )
+        )
+
+        all_observations.extend(
+            add_out_of_bounds(series_id, series_name, tolerance, units)
         )
 
     write_to_json(all_observations, "questions.json")

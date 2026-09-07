@@ -4,3 +4,5 @@ logs/
 __pycache__/
 .DS_Store
 *.md
+*.json
+src/_cache/
