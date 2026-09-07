@@ -3,8 +3,10 @@
 import json
 import random
 from dataclasses import asdict
-from datetime import date, datetime
+from datetime import datetime
 from time import sleep
+
+from pathlib import Path
 
 import httpx
 from constants import (
@@ -20,6 +22,21 @@ from constants import (
 
 random.seed(RANDOM_SEED)
 
+CACHE_DIR = Path(__file__).parent / "_cache"
+
+def get_cache_path(fred_url: str, params: dict[str, str]) -> Path:
+    "Turns a URL and parameters into a path for caching API call results."
+
+    Path.mkdir(CACHE_DIR, exist_ok=True)
+
+    params_cache = {k: v for k, v in params.items() if k != "api_key"}
+    url = httpx.URL(fred_url)
+
+    merged_url = str(url.copy_with(params=params_cache)).lower()
+    merged_url_clean = merged_url.replace(FRED_URL, "")
+
+    return Path(CACHE_DIR / merged_url_clean)
+
 
 def call_fred_api(series_id: str) -> list[dict[str, str]]:
     """Return all observations from a series_id via FRED API call."""
@@ -32,12 +49,25 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
         "observation_start": FRED_START_DATE,
     }
 
-    sleep(1)
-    response = httpx.get(FRED_URL, params=params)
-    response.raise_for_status()
-    data = response.json()
+    cache_path = get_cache_path(FRED_URL, params)
 
-    return data["observations"]
+    if cache_path.exists():
+        print("Cache hit!")
+        with open(cache_path, "r") as f:
+            data = f.read()
+
+    else:
+        print("No cache hit, calling API")
+        sleep(1)
+        response = httpx.get(FRED_URL, params=params)
+        response.raise_for_status()
+
+        with open(cache_path, "w") as f:
+            f.write(response.text)
+            data = response.text
+
+    data_dict = json.loads(data)
+    return data_dict["observations"]
 
 
 def get_random_observations(
@@ -101,7 +131,7 @@ def main():
     all_observations = []
 
     for series_id in SERIES:
-        print(f"\nEvaluating new series: {series_id}")
+        print(f"\n--- Evaluating new series: {series_id} ---")
 
         series_name = SERIES[series_id].name
         tolerance = SERIES[series_id].tolerance
