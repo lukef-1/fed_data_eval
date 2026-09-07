@@ -9,7 +9,7 @@ from time import sleep
 from pathlib import Path
 
 import httpx
-from constants import (
+from .constants import (
     API_KEY,
     FRED_START_DATE,
     FRED_URL,
@@ -21,7 +21,7 @@ from constants import (
     NUM_OOB_PER_CATEGORY
 )
 
-from schema import ObservationEntry, NoNumber, TestType
+from .schema import ObservationRaw, ObservationEntry, NoNumber, TestType
 
 random.seed(RANDOM_SEED)
 
@@ -74,6 +74,103 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
 
 
 # LOTS OF PASSING VARIABLES AROUND, MAKE A CLASS?
+
+class SeriesDatasetLoader:
+    def __init__(
+            self,
+            series_observations: list[dict[str, str]],
+            series_id: str, 
+            series_name: str,
+            tolerance: float,
+            units: str
+            ):
+        
+        self.series_observations = series_observations
+        self.series_id = series_id
+        self.series_name = series_name
+        self.tolerance = tolerance
+        self.units = units
+
+        # Temporarily holds all observations from each period
+        self.year_buckets: dict[tuple, list[ObservationRaw]] = {period: [] for period in YEARS}
+        self.sampled_observations: dict[tuple, list[ObservationRaw]] = {period: [] for period in YEARS}
+        self.final_observations: list[ObservationEntry] = []
+
+    def sort_observations(self) -> None:
+        """
+        Select a random subset of observations from a single series using specified
+        time periods.
+        """
+
+        # Build list of all observations per period
+        for observation in self.series_observations:
+            if observation["value"] == ".":
+                continue
+
+            obs_date = datetime.strptime(observation["date"], "%Y-%m-%d")
+
+            obs_raw = ObservationRaw(
+                realtime_start = observation.get("realtime_start"),
+                realtime_end = observation.get("realtime_end"),
+                date = observation["date"],
+                value = float(observation["value"]),
+                test_type = TestType.IN_SCOPE.value
+            )
+
+            for period_start, period_end in YEARS:
+                if period_start <= obs_date.year <= period_end:
+                    self.year_buckets[(period_start, period_end)].append(obs_raw)
+
+        return None
+
+    def get_random_observations(self) -> None:
+        for (period_start, period_end), bucket in self.year_buckets.items():
+            print(f"Sampling for period: {period_start} - {period_end}")
+
+            random_observations = random.sample(bucket, OBS_PER_PERIOD)
+            self.sampled_observations[(period_start, period_end)].extend(random_observations)
+
+    def add_out_of_bounds_entries(self) -> None:
+
+        for period_start, period_end in OOB_RANGES:
+            observations: list[ObservationRaw] = []
+
+            for _ in range(NUM_OOB_PER_CATEGORY):
+                year = random.randint(period_start, period_end)
+                month = random.randint(1, 12)
+                d = datetime(year, month, 1).date()
+
+                observations.append(
+                    ObservationRaw(
+                        realtime_start=None,
+                        realtime_end=None,
+                        date=d.strftime("%Y-%m-%d"),
+                        value=NoNumber.INVALID,
+                        test_type=TestType.OUT_OF_SCOPE.value
+                    )
+                )
+
+            self.sampled_observations[(period_start, period_end)] = observations
+
+
+    def build_observation_entries(self) -> None:
+        for (period_start, period_end), observations in self.sampled_observations.items():
+
+            for observation in observations:
+                self.final_observations.append(
+                    ObservationEntry(
+                        target=observation.value,
+                        series_id=self.series_id,
+                        series_name=self.series_name,
+                        units=self.units,
+                        obs_date=datetime.strptime(observation.date, "%Y-%m-%d").date(),
+                        period_start=period_start,
+                        period_end=period_end,
+                        tolerance=self.tolerance,
+                        test_type=observation.test_type
+                    )
+                )
+
 
 def get_random_observations(
     series_observations: list[dict[str, str]],

@@ -1,4 +1,4 @@
-from schema import SeriesFields
+from .schema import SeriesFields
 
 import os
 from dotenv import load_dotenv

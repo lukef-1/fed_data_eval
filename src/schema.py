@@ -21,6 +21,18 @@ class SeriesFields(NamedTuple):
     tolerance: float
     units: str
 
+
+@dataclass
+class ObservationRaw:
+    """Class for an unprocessed API response for a single series observation."""
+
+    realtime_start: str | None
+    realtime_end: str | None
+    date: str
+    value: float | NoNumber
+    test_type: str
+
+
 @dataclass
 class ObservationEntry:
     """Class for a question with a golden response from an API response."""

@@ -1,6 +1,6 @@
-from constants import FRED_URL, API_KEY
+from .constants import FRED_URL, API_KEY
 
-from scoring import (
+from .scoring import (
     CLOSED_BOOK_PROMPT,
     TOOL_PROMPT,
     WEB_SEARCH_PROMPT,
