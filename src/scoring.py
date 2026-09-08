@@ -1,6 +1,6 @@
-from schema import NoNumber
 import re
 
+from schema import NoNumber
 
 CLOSED_BOOK_PROMPT = """Answer in the format ANSWER: <number>
 If you do not know the value, reply ANSWER: UNKNOWN. If the question asks about a

@@ -1,5 +1,5 @@
-from src.schema import NoNumber
-from src.scoring import extract_number
+from schema import NoNumber
+from scoring import extract_number
 
 
 def test_regex_basic():

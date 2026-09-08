@@ -1,7 +1,8 @@
-from schema import SeriesFields
-
 import os
+
 from dotenv import load_dotenv
+
+from schema import SeriesFields, TreatmentStatus
 
 load_dotenv()
 API_KEY = os.getenv("FRED_API_KEY")
@@ -50,3 +51,9 @@ OOB_YEARS = [(1880, 1900), (2030, 2050)]
 NUM_OOB_PER_CATEGORY = 3
 
 RANDOM_SEED = 42
+
+FLAKY_WEIGHTS = {
+    TreatmentStatus.ERROR: 0.15, 
+    TreatmentStatus.TREATMENT_A: 0.15, 
+    TreatmentStatus.TREATMENT_B: 0.15,
+    TreatmentStatus.NORMAL: 0.55}

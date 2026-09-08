@@ -1,5 +1,4 @@
-from inspect_ai.analysis import evals_df, samples_df
-import pandas as pd
+from inspect_ai.analysis import samples_df
 
 # Found these in a notebook using `evals_df("logs")`
 EVAL_IDS = {

@@ -1,8 +1,7 @@
-from enum import StrEnum
-from typing import NamedTuple
-
 from dataclasses import dataclass, field
 from datetime import date
+from enum import StrEnum
+from typing import NamedTuple
 
 
 class NoNumber(StrEnum):
@@ -14,6 +13,13 @@ class NoNumber(StrEnum):
 class TestType(StrEnum):
     IN_SCOPE = "in_scope"
     OUT_OF_SCOPE = "out_of_scope"
+
+
+class TreatmentStatus(StrEnum):
+    ERROR = "error"
+    TREATMENT_A = "treatment_a"
+    TREATMENT_B = "treatment_b"
+    NORMAL = "normal"
 
 
 class SeriesFields(NamedTuple):

@@ -1,14 +1,3 @@
-from scoring import (
-    CLOSED_BOOK_PROMPT,
-    TOOL_PROMPT,
-    TOOL_NO_ID_PROMPT,
-    WEB_SEARCH_PROMPT,
-    NoNumber,
-    extract_number,
-)
-
-from tools import get_fred_series_list, get_single_fred_value, get_single_fred_value_flaky
-
 from inspect_ai import Task, task
 from inspect_ai.dataset import FieldSpec, json_dataset
 from inspect_ai.scorer import (
@@ -24,7 +13,21 @@ from inspect_ai.scorer import (
     stderr,
 )
 from inspect_ai.solver import TaskState, generate, system_message, use_tools
-from inspect_ai.tool import tool, web_search
+from inspect_ai.tool import tool
+
+from scoring import (
+    CLOSED_BOOK_PROMPT,
+    TOOL_NO_ID_PROMPT,
+    TOOL_PROMPT,
+    NoNumber,
+    extract_number,
+)
+from tools import (
+    get_fred_series_list,
+    get_fred_series_list_flaky,
+    get_single_fred_value,
+    get_single_fred_value_flaky,
+)
 
 
 @scorer(metrics=[grouped(accuracy(), "period_full"), frequency(), stderr()])
@@ -83,13 +86,21 @@ def within_margin():
 def call_fred_api():
     return get_single_fred_value
 
-@tool
+
+@tool(name="call_fred_api")
 def call_fred_api_flaky():
     return get_single_fred_value_flaky
+
 
 @tool
 def search_fred_series():
     return get_fred_series_list
+
+
+@tool(name="search_fred_series")
+def search_fred_series_flaky():
+    return get_fred_series_list_flaky
+
 
 @task
 def closed_book_test_custom():
@@ -132,7 +143,7 @@ def fred_api_test_custom():
                 ],
             ),
             shuffle=True,
-            seed=42
+            seed=42,
         ),
         solver=[system_message(TOOL_PROMPT), use_tools(call_fred_api()), generate()],
         scorer=within_margin(),
@@ -157,11 +168,16 @@ def fred_api_test_custom_no_series():
                 ],
             ),
             shuffle=True,
-            seed=42
+            seed=42,
         ),
-        solver=[system_message(TOOL_NO_ID_PROMPT), use_tools(search_fred_series(), call_fred_api()), generate()],
+        solver=[
+            system_message(TOOL_NO_ID_PROMPT),
+            use_tools(search_fred_series(), call_fred_api()),
+            generate(),
+        ],
         scorer=within_margin(),
     )
+
 
 @task
 def fred_api_test_custom_no_series_flaky():
@@ -181,33 +197,12 @@ def fred_api_test_custom_no_series_flaky():
                 ],
             ),
             shuffle=True,
-            seed=42
+            seed=42,
         ),
-        solver=[system_message(TOOL_NO_ID_PROMPT), use_tools(search_fred_series(), call_fred_api_flaky()), generate()],
-        scorer=within_margin(),
-    )
-
-
-@task
-def web_search_test_custom():
-    return Task(
-        dataset=json_dataset(
-            "../questions.json",
-            FieldSpec(
-                input="input",
-                target="target",
-                id="question_id",
-                metadata=[
-                    "series_id",
-                    "series_name",
-                    "period_full",
-                    "tolerance",
-                    "test_type",
-                ],
-            ),
-            shuffle=True,
-            seed=42
-        ),
-        solver=[system_message(WEB_SEARCH_PROMPT), use_tools(web_search()), generate()],
+        solver=[
+            system_message(TOOL_NO_ID_PROMPT),
+            use_tools(search_fred_series_flaky(), call_fred_api_flaky()),
+            generate(),
+        ],
         scorer=within_margin(),
     )

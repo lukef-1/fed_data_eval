@@ -1,28 +1,27 @@
 """Builds the questions.json file by making a series of FRED API calls."""
 
-import re
 import json
 import random
+import re
 from dataclasses import asdict
-from datetime import datetime, date
+from datetime import date, datetime
+from pathlib import Path
 from time import sleep
 
-from pathlib import Path
-
 import httpx
+
 from constants import (
     API_KEY,
     FRED_START_DATE,
     FRED_URL,
+    NUM_OOB_PER_CATEGORY,
     OBS_PER_PERIOD,
+    OOB_YEARS,
     RANDOM_SEED,
     SERIES,
     YEARS,
-    OOB_YEARS,
-    NUM_OOB_PER_CATEGORY,
 )
-
-from schema import ObservationRaw, ObservationEntry, NoNumber, TestType
+from schema import NoNumber, ObservationEntry, ObservationRaw, TestType
 
 random.seed(RANDOM_SEED)
 
@@ -207,8 +206,10 @@ class SeriesDatasetLoader:
         if path == 2:
             return f"In the US, what was the value of {self.series_name} (units: {self.units}) in {date_clean}?"
         if path == 3:
-            return f"US value of {self.series_name} units: {self.units}) in {date_clean}?"
-        
+            return (
+                f"US value of {self.series_name} units: {self.units}) in {date_clean}?"
+            )
+
         return "Randomization error"
 
 
