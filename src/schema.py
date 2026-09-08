@@ -28,16 +28,16 @@ class ObservationRaw:
 
     realtime_start: str | None
     realtime_end: str | None
-    date: str
+    date: date
     value: float | NoNumber
     test_type: str
 
 
 @dataclass
 class ObservationEntry:
-    """Class for a question with a golden response from an API response."""
+    """Class for a question with a golden value."""
 
-    input: str = field(init=False)
+    input: str
     target: float | NoNumber
     series_id: str
     series_name: str
@@ -51,11 +51,6 @@ class ObservationEntry:
     test_type: str
 
     def __post_init__(self):
-        obs_date_str = self.obs_date.strftime("%B %Y")
-
-        # Dynamically generate the prompt
-        self.input = f"According to FRED data, what was the value of {self.series_name} (units: {self.units}) in the United States in {obs_date_str}?"
-
         # Generate a single time period field
         self.period_full = f"{self.period_start}-{self.period_end}"
 

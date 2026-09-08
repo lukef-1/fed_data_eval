@@ -4,7 +4,7 @@ import re
 import json
 import random
 from dataclasses import asdict
-from datetime import datetime
+from datetime import datetime, date
 from time import sleep
 
 from pathlib import Path
@@ -115,7 +115,7 @@ class SeriesDatasetLoader:
             obs_raw = ObservationRaw(
                 realtime_start=observation.get("realtime_start"),
                 realtime_end=observation.get("realtime_end"),
-                date=observation["date"],
+                date=datetime.strptime(observation["date"], "%Y-%m-%d").date(),
                 value=float(observation["value"]),
                 test_type=TestType.IN_SCOPE.value,
             )
@@ -164,7 +164,7 @@ class SeriesDatasetLoader:
                     ObservationRaw(
                         realtime_start=None,
                         realtime_end=None,
-                        date=d.strftime("%Y-%m-%d"),
+                        date=d,
                         value=NoNumber.INVALID,
                         test_type=TestType.OUT_OF_SCOPE.value,
                     )
@@ -184,17 +184,32 @@ class SeriesDatasetLoader:
             for observation in observations:
                 self.final_observations.append(
                     ObservationEntry(
+                        input=self._get_prompt(observation.date),
                         target=observation.value,
                         series_id=self.series_id,
                         series_name=self.series_name,
                         units=self.units,
-                        obs_date=datetime.strptime(observation.date, "%Y-%m-%d").date(),
+                        obs_date=observation.date,
                         period_start=period_start,
                         period_end=period_end,
                         tolerance=self.tolerance,
                         test_type=observation.test_type,
                     )
                 )
+
+    def _get_prompt(self, obs_date: date) -> str:
+        "Randomly assigns one of three prompt variants to a question."
+
+        path = random.randint(1, 3)
+        date_clean = obs_date.strftime("%B %Y")
+        if path == 1:
+            return f"According to FRED data, what was the value of {self.series_name} (units: {self.units}) in the United States in {date_clean}?"
+        if path == 2:
+            return f"In the US, what was the value of {self.series_name} (units: {self.units}) in {date_clean}?"
+        if path == 3:
+            return f"US value of {self.series_name} units: {self.units}) in {date_clean}?"
+        
+        return "Randomization error"
 
 
 def write_to_json(all_observations: list[ObservationEntry], file_name: str) -> None:

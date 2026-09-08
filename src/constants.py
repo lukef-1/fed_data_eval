@@ -46,7 +46,7 @@ YEARS = [(2016, 2020), (2021, 2025), (2026, 2026)]
 OBS_PER_PERIOD = 5
 
 # Defines years for PRE and POST out-of-bounds samples + the number of each to include per series.
-OOB_YEARS = [(1900, 1920), (2030, 2050)]
+OOB_YEARS = [(1880, 1900), (2030, 2050)]
 NUM_OOB_PER_CATEGORY = 3
 
 RANDOM_SEED = 42
