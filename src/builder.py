@@ -1,5 +1,6 @@
 """Builds the questions.json file by making a series of FRED API calls."""
 
+import re
 import json
 import random
 from dataclasses import asdict
@@ -17,8 +18,8 @@ from constants import (
     RANDOM_SEED,
     SERIES,
     YEARS,
-    OOB_RANGES,
-    NUM_OOB_PER_CATEGORY
+    OOB_YEARS,
+    NUM_OOB_PER_CATEGORY,
 )
 
 from schema import ObservationRaw, ObservationEntry, NoNumber, TestType
@@ -26,6 +27,7 @@ from schema import ObservationRaw, ObservationEntry, NoNumber, TestType
 random.seed(RANDOM_SEED)
 
 CACHE_DIR = Path(__file__).parent / "_cache"
+
 
 def get_cache_path(fred_url: str, params: dict[str, str]) -> Path:
     "Turns a URL and parameters into a path for caching API call results."
@@ -36,7 +38,8 @@ def get_cache_path(fred_url: str, params: dict[str, str]) -> Path:
     url = httpx.URL(fred_url)
 
     merged_url = str(url.copy_with(params=params_cache)).lower()
-    merged_url_clean = merged_url.replace(FRED_URL, "")
+    merged_url_short = merged_url.replace(FRED_URL, "")
+    merged_url_clean = re.sub(r'[<>:"/\\|?*&=]', "_", merged_url_short)
 
     return Path(CACHE_DIR / merged_url_clean)
 
@@ -75,23 +78,29 @@ def call_fred_api(series_id: str) -> list[dict[str, str]]:
 
 class SeriesDatasetLoader:
     def __init__(
-            self,
-            series_observations: list[dict[str, str]],
-            series_id: str, 
-            series_name: str,
-            tolerance: float,
-            units: str
-            ):
-        
+        self,
+        series_observations: list[dict[str, str]],
+        series_id: str,
+        series_name: str,
+        tolerance: float,
+        units: str,
+        obs_per_period: int,
+    ):
+
         self.series_observations = series_observations
         self.series_id = series_id
         self.series_name = series_name
         self.tolerance = tolerance
         self.units = units
+        self.obs_per_period = obs_per_period
 
         # Temporarily holds all observations from each period
-        self.year_buckets: dict[tuple, list[ObservationRaw]] = {period: [] for period in YEARS}
-        self.sampled_observations: dict[tuple, list[ObservationRaw]] = {period: [] for period in YEARS}
+        self.year_buckets: dict[tuple, list[ObservationRaw]] = {
+            period: [] for period in YEARS + OOB_YEARS
+        }
+        self.sampled_observations: dict[tuple, list[ObservationRaw]] = {
+            period: [] for period in YEARS + OOB_YEARS
+        }
         self.final_observations: list[ObservationEntry] = []
 
     def sort_observations(self) -> None:
@@ -104,11 +113,11 @@ class SeriesDatasetLoader:
                 continue
 
             obs_raw = ObservationRaw(
-                realtime_start = observation.get("realtime_start"),
-                realtime_end = observation.get("realtime_end"),
-                date = observation["date"],
-                value = float(observation["value"]),
-                test_type = TestType.IN_SCOPE.value
+                realtime_start=observation.get("realtime_start"),
+                realtime_end=observation.get("realtime_end"),
+                date=observation["date"],
+                value=float(observation["value"]),
+                test_type=TestType.IN_SCOPE.value,
             )
 
             obs_date = datetime.strptime(observation["date"], "%Y-%m-%d")
@@ -123,11 +132,15 @@ class SeriesDatasetLoader:
         """
 
         for (period_start, period_end), bucket in self.year_buckets.items():
+            # Skip empty lists for out-of-bounds observations
+            if not bucket:
+                continue
             print(f"Sampling for period: {period_start} - {period_end}")
 
-            random_observations = random.sample(bucket, OBS_PER_PERIOD)
-            self.sampled_observations[(period_start, period_end)].extend(random_observations)
-
+            random_observations = random.sample(bucket, self.obs_per_period)
+            self.sampled_observations[(period_start, period_end)].extend(
+                random_observations
+            )
 
     def add_out_of_bounds_entries(self) -> None:
         """
@@ -135,9 +148,13 @@ class SeriesDatasetLoader:
         of sampled observations.
         """
 
-        for period_start, period_end in OOB_RANGES:
+        for period_start, period_end in OOB_YEARS:
             observations: list[ObservationRaw] = []
-            possible_dates = [(m, y) for m in range(1, 12) for y in range(period_start, period_end)]
+            possible_dates = [
+                (m, y)
+                for m in range(1, 13)
+                for y in range(period_start, period_end + 1)
+            ]
 
             random_dates = random.sample(possible_dates, k=NUM_OOB_PER_CATEGORY)
             for month, year in random_dates:
@@ -149,20 +166,21 @@ class SeriesDatasetLoader:
                         realtime_end=None,
                         date=d.strftime("%Y-%m-%d"),
                         value=NoNumber.INVALID,
-                        test_type=TestType.OUT_OF_SCOPE.value
+                        test_type=TestType.OUT_OF_SCOPE.value,
                     )
                 )
 
             self.sampled_observations[(period_start, period_end)] = observations
-
 
     def build_observation_entries(self) -> None:
         """
         Turns a list of sampled observations into a list of final SeriesObservations.
         """
 
-        for (period_start, period_end), observations in self.sampled_observations.items():
-
+        for (
+            period_start,
+            period_end,
+        ), observations in self.sampled_observations.items():
             for observation in observations:
                 self.final_observations.append(
                     ObservationEntry(
@@ -174,7 +192,7 @@ class SeriesDatasetLoader:
                         period_start=period_start,
                         period_end=period_end,
                         tolerance=self.tolerance,
-                        test_type=observation.test_type
+                        test_type=observation.test_type,
                     )
                 )
 
@@ -194,18 +212,15 @@ def main():
     for series_id in SERIES:
         print(f"\n--- Evaluating new series: {series_id} ---")
 
-        series_name = SERIES[series_id].name
-        tolerance = SERIES[series_id].tolerance
-        units = SERIES[series_id].units
-
         series_observations = call_fred_api(series_id)
 
         series_loader = SeriesDatasetLoader(
             series_observations=series_observations,
             series_id=series_id,
-            series_name=series_name,
-            tolerance=tolerance,
-            units=units
+            series_name=SERIES[series_id].name,
+            tolerance=SERIES[series_id].tolerance,
+            units=SERIES[series_id].units,
+            obs_per_period=OBS_PER_PERIOD,
         )
 
         series_loader.sort_observations()

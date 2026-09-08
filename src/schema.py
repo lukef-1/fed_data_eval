@@ -54,7 +54,7 @@ class ObservationEntry:
         obs_date_str = self.obs_date.strftime("%B %Y")
 
         # Dynamically generate the prompt
-        self.input = f"According to FRED series {self.series_id} (units: {self.units}), what was the value of {self.series_name} in the United States in {obs_date_str}?"
+        self.input = f"According to FRED data, what was the value of {self.series_name} (units: {self.units}) in the United States in {obs_date_str}?"
 
         # Generate a single time period field
         self.period_full = f"{self.period_start}-{self.period_end}"
