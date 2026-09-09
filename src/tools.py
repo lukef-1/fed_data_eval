@@ -9,12 +9,12 @@ from schema import TreatmentStatus
 
 random.seed(RANDOM_SEED)
 
-def _get_treatment_status():
-    """Finds a treatment variant for a given """
+def _get_treatment_status() -> TreatmentStatus:
+    "Finds a treatment variant for a a given sample."
     variants = list(FLAKY_WEIGHTS.keys())
     weights = list(FLAKY_WEIGHTS.values())
 
-    return random.choices(variants, weights=weights, k=1)
+    return random.choices(variants, weights=weights, k=1)[0]
 
 
 async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:

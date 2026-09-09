@@ -126,31 +126,6 @@ def closed_book_test_custom():
 
 
 @task
-def fred_api_test_custom():
-    return Task(
-        dataset=json_dataset(
-            "../questions.json",
-            FieldSpec(
-                input="input",
-                target="target",
-                id="question_id",
-                metadata=[
-                    "series_id",
-                    "series_name",
-                    "period_full",
-                    "tolerance",
-                    "test_type",
-                ],
-            ),
-            shuffle=True,
-            seed=42,
-        ),
-        solver=[system_message(TOOL_PROMPT), use_tools(call_fred_api()), generate()],
-        scorer=within_margin(),
-    )
-
-
-@task
 def fred_api_test_custom_no_series():
     return Task(
         dataset=json_dataset(

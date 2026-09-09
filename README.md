@@ -7,15 +7,16 @@ Write-ups describing this project and learnings: [Post 1](https://lukef-1.github
 ## Repo structure
 
 ```
-dataset/
+src/
   builder.py          Pulls FRED observations and writes questions.json
   constants.py        Series list, tolerances, year ranges, sampling config
-evaluator/
-  evals.py            `Inspect` eval tasks, FRED tool, and within_margin scorer
-  constants.py        System prompts and extract_number() response parser
+  schema.py           Shared enums and dataclasses for observations and questions
+  scoring.py          System prompts and extract_number() response parser
+  tools.py            FRED API tools - value lookup, series search, and flaky variants
+  evals.py            `Inspect` eval tasks and within_margin scorer
 tests/
   test_regex.py       Covers extract_number()
-questions.json        72-question dataset (auto-generated)
+questions.json        168-question dataset (auto-generated)
 aggregate_results.py  Script to print summary results tables to terminal
 logs/                 Inspect .eval log files from benchmarking runs
 ```
@@ -46,10 +47,10 @@ Note: `<PROIVDER>API_KEY` must match the provider used in `INSPECT_EVAL_MODEL`. 
 Run from the repo root:
 
 ```bash
-uv run python dataset/builder.py
+uv run python src/builder.py
 ```
 
-This writes `questions.json` (8 series x 3 year ranges x 3 observations = 72 questions). The random seed is fixed, so re-running produces the same question set unless the config in `dataset/constants.py` changes.
+This writes `questions.json` (8 series x 3 year ranges x 5 observations, plus 6 out-of-range questions per series = 168 questions). The random seed is fixed, so re-running produces the same question set unless the config in `src/constants.py` changes.
 
 ## Running the evals
 
@@ -58,25 +59,38 @@ The current version of this eval tests two scenarios: `LLM Only` (no tools) and 
 
 **`LLM Only` - Sonnet 5**
 ```bash
-uv run inspect eval evaluator/evals.py@closed_book_test_custom --epochs 3
+uv run inspect eval src/evals.py@closed_book_test_custom --epochs 3
 ```
 
 **`LLM Only` - Gemma 4: e4b**
 ```bash
-uv run inspect eval evaluator/evals.py@closed_book_test_custom --epochs 3 --model ollama/gemma4:e4b --temperature 1.0
+uv run inspect eval src/evals.py@closed_book_test_custom --epochs 3 --model ollama/gemma4:e4b --temperature 1.0
 ```
 
 **`LLM + FRED API` - Sonnet 5**
 ```bash
-uv run inspect eval evaluator/evals.py@fred_api_test_custom --epochs 3 --max-connections 15
+uv run inspect eval src/evals.py@fred_api_test_custom --epochs 3 --max-connections 15
 ```
 
 **`LLM + FRED API` - Gemma 4: e4b**
 ```bash
-uv run inspect eval evaluator/evals.py@fred_api_test_custom --epochs 3 --model ollama/gemma4:e4b --temperature 1.0 --max-connections 15
+uv run inspect eval src/evals.py@fred_api_test_custom --epochs 3 --model ollama/gemma4:e4b --temperature 1.0 --max-connections 15
 ```
 
 Add `--limit 10` to any of these to run a quick test.
+
+### Bulk runs
+
+To run every task in `src/evals.py` against several models in one go, use `inspect eval-set`. The `--log-dir` keeps a durable record of which tasks finished, so re-running the same command picks up where the last invocation left off:
+
+```bash
+uv run inspect eval-set src/evals.py \
+    --model=openrouter/deepseek/deepseek-v4-flash-0731,openrouter/z-ai/glm-5.3-flash,openrouter/google/gemini-3.8-flash,openrouter/openai/gpt-5.6-luna \
+    --no-retry-immediate \
+    --max-connections 5 \
+    --max-tasks 2 \
+    --log-dir logs/phase_2_2026_09_09
+```
 
 ## Viewing results
 

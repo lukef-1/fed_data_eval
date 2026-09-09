@@ -48,12 +48,12 @@ OBS_PER_PERIOD = 5
 
 # Defines years for PRE and POST out-of-bounds samples + the number of each to include per series.
 OOB_YEARS = [(1880, 1900), (2030, 2050)]
-NUM_OOB_PER_CATEGORY = 3
+NUM_OOB_PER_CATEGORY = 2
 
 RANDOM_SEED = 42
 
 FLAKY_WEIGHTS = {
-    TreatmentStatus.ERROR: 0.15, 
-    TreatmentStatus.TREATMENT_A: 0.15, 
-    TreatmentStatus.TREATMENT_B: 0.15,
-    TreatmentStatus.NORMAL: 0.55}
+    TreatmentStatus.ERROR: 0.2, 
+    TreatmentStatus.TREATMENT_A: 0.2, 
+    TreatmentStatus.TREATMENT_B: 0.2,
+    TreatmentStatus.NORMAL: 0.4}
