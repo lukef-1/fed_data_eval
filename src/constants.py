@@ -53,7 +53,8 @@ NUM_OOB_PER_CATEGORY = 2
 RANDOM_SEED = 42
 
 FLAKY_WEIGHTS = {
-    TreatmentStatus.ERROR: 0.2, 
-    TreatmentStatus.TREATMENT_A: 0.2, 
+    TreatmentStatus.ERROR: 0.2,
+    TreatmentStatus.TREATMENT_A: 0.2,
     TreatmentStatus.TREATMENT_B: 0.2,
-    TreatmentStatus.NORMAL: 0.4}
+    TreatmentStatus.NORMAL: 0.4,
+}

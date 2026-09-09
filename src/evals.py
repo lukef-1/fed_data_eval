@@ -142,8 +142,6 @@ def fred_api_test_custom_no_series():
                     "test_type",
                 ],
             ),
-            shuffle=True,
-            seed=42,
         ),
         solver=[
             system_message(TOOL_NO_ID_PROMPT),
@@ -171,8 +169,6 @@ def fred_api_test_custom_no_series_flaky():
                     "test_type",
                 ],
             ),
-            shuffle=True,
-            seed=42,
         ),
         solver=[
             system_message(TOOL_NO_ID_PROMPT),

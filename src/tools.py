@@ -1,6 +1,8 @@
 import asyncio
 import json
 import random
+from pathlib import Path
+import re
 
 import httpx
 
@@ -9,8 +11,8 @@ from schema import TreatmentStatus
 
 random.seed(RANDOM_SEED)
 
-_OBSERVATION_CACHE = {}
-_SERIES_CACHE = {}
+CACHE_DIR = Path(__file__).parent / "_cache" / "tools"
+
 
 def _get_treatment_status() -> TreatmentStatus:
     "Finds a treatment variant for a a given sample."
@@ -27,10 +29,12 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
     """
 
     url = FRED_URL
-    # Cache and fetch previous requests when available
-    key = (series_id.upper(), date)
-    if key in _OBSERVATION_CACHE:
-        return _OBSERVATION_CACHE[key]
+
+    cache_path = CACHE_DIR / "observations" / f"{series_id.upper()}_{date}.json"
+    if cache_path.exists():
+        print("\tCache Hit - Observations")
+        with open(cache_path, "r") as f:
+            return json.load(f)
 
     params = {
         "series_id": series_id.upper(),
@@ -40,8 +44,12 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
         "observation_end": date,
     }
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params)
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        await asyncio.sleep(1)
+        try:
+            response = await client.get(url, params=params)
+        except httpx.HTTPError as e:
+            return f"Network error contacting FRED for {series_id} on {date}: {e!r}"
 
     if response.is_error:
         return f"Error returned for {series_id} on {date}. Error code: {response.status_code}. Error message: {response.text}"
@@ -59,7 +67,10 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
         return f"ValueError - returned value was not a float - error: {e}"
 
     result = {"returned_date": returned_date, "returned_value": value}
-    _OBSERVATION_CACHE[key] = result
+
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(cache_path, "w") as f:
+        json.dump(result, f)
 
     return result
 
@@ -131,9 +142,7 @@ async def get_single_fred_value_flaky(series_id: str, date: str) -> str:
     return f"The value for {series_id} on {returned_date} was {returned_value}"
 
 
-async def _get_series_list(
-    search_text: str, order_by: str = "search_rank", sort_order: str = "desc"
-) -> str | list[str]:
+async def _get_series_list(search_text: str) -> str | list[str]:
     """
     Helper that fetches FRED series list results. Returns the full set, which is
     always returned by the non-flaky tool and sometimes returned in full by the
@@ -142,22 +151,28 @@ async def _get_series_list(
 
     url = "https://api.stlouisfed.org/fred/series/search"
 
-    key = (search_text.lower(), order_by.lower(), sort_order.lower())
-    if key in _SERIES_CACHE:
-        return _SERIES_CACHE[key]
+    cache_key = search_text.lower()
+    clean_path = re.sub(r"[^a-z0-9]+", "_", cache_key)[:80]
+
+    cache_path = CACHE_DIR / "search" / f"{clean_path}.json"
+    if cache_path.exists():
+        print("\tCache Hit - Series List")
+        with open(cache_path, "r") as f:
+            return json.load(f)
 
     params = {
         "api_key": API_KEY,
         "file_type": "json",
         "search_text": search_text,
         "limit": 10,
-        "order_by": order_by,
-        "sort_order": sort_order,
     }
 
-    async with httpx.AsyncClient() as client:
-        await asyncio.sleep(0.5)
-        response = await client.get(url, params=params)
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        await asyncio.sleep(1)
+        try:
+            response = await client.get(url, params=params)
+        except httpx.HTTPError as e:
+            return f"Network error contacting FRED for {search_text}: {e!r}"
 
     if response.is_error:
         return f"Error returned when searching for {search_text}. Error code: {response.status_code}. Error message: {response.text}"
@@ -174,8 +189,8 @@ async def _get_series_list(
     sort_order = data["sort_order"]
     series = data["seriess"]
 
-    response_list = []
-    response_list.append(
+    result = []
+    result.append(
         f"Showing top {num_shown} out of {total_matches} matches, ordered by {order_by} and sorted in {sort_order} order."
     )
 
@@ -189,40 +204,30 @@ async def _get_series_list(
         adjust = row["seasonal_adjustment"]
         popularity = row["popularity"]
 
-        response_list.append(
+        result.append(
             f"Series ID: {id} - Title: {title} - Observations from {obs_start} to {obs_end} - Frequency {freq} - Units {units} {adjust} - Popularity {popularity}"
         )
 
-    _SERIES_CACHE[key] = response_list
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(cache_path, "w") as f:
+        json.dump(result, f)
 
-    return response_list
+    return result
 
 
-async def get_fred_series_list(
-    search_text: str, order_by: str = "search_rank", sort_order: str = "desc"
-) -> str:
+async def get_fred_series_list(search_text: str) -> str:
     """
     Returns an ordered list of FRED series for a given search term, with
     flexibility to determine ordering. Results may not be accurate in 100% of cases.
 
     Args:
         search_text: The words to match against economic data series. Required.
-        order_by: Order results by values of the specified attribute. One
-            of the following strings: 'search_rank', 'series_id', 'title',
-            'units', 'frequency', 'seasonal_adjustment', 'realtime_start',
-            'realtime_end', 'last_updated', 'observation_start', 'observation_end',
-            'popularity', 'group_popularity'. Optional, defaults to 'search_rank'.
-        sort_order: Sets whether results are in ascending ("asc") or descending
-            ("desc) order for attribute values specified by order_by. Optional, default = "desc"
-            if order_by is "search_rank" or "popularity" and Default = "asc" otherwise.
 
     Returns:
         A string listing the top 10 results (if 10+ matches exist).
     """
 
-    response = await _get_series_list(
-        search_text=search_text, order_by=order_by, sort_order=sort_order
-    )
+    response = await _get_series_list(search_text=search_text)
 
     # Return stringified error messages directly
     if isinstance(response, str):
@@ -231,23 +236,13 @@ async def get_fred_series_list(
     return "\n".join(response)
 
 
-async def get_fred_series_list_flaky(
-    search_text: str, order_by: str = "search_rank", sort_order: str = "desc"
-) -> str:
+async def get_fred_series_list_flaky(search_text: str) -> str:
     """
     Returns an ordered list of FRED series for a given search term, with
     flexibility to determine ordering. Results may not be accurate in 100% of cases.
 
     Args:
         search_text: The words to match against economic data series. Required.
-        order_by: Order results by values of the specified attribute. One
-            of the following strings: 'search_rank', 'series_id', 'title',
-            'units', 'frequency', 'seasonal_adjustment', 'realtime_start',
-            'realtime_end', 'last_updated', 'observation_start', 'observation_end',
-            'popularity', 'group_popularity'. Optional, defaults to 'search_rank'.
-        sort_order: Sets whether results are in ascending ("asc") or descending
-            ("desc) order for attribute values specified by order_by. Optional, default = "desc"
-            if order_by is "search_rank" or "popularity" and Default = "asc" otherwise.
 
     Returns:
         A string listing the top 10 results (if 10+ matches exist).
@@ -258,9 +253,7 @@ async def get_fred_series_list_flaky(
     if treatment_status == TreatmentStatus.ERROR:
         return "Server error, please re-try shortly."
 
-    response = await _get_series_list(
-        search_text=search_text, order_by=order_by, sort_order=sort_order
-    )
+    response = await _get_series_list(search_text=search_text)
 
     # Return stringified error messages directly
     if isinstance(response, str):
