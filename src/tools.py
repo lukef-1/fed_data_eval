@@ -9,6 +9,9 @@ from schema import TreatmentStatus
 
 random.seed(RANDOM_SEED)
 
+_OBSERVATION_CACHE = {}
+_SERIES_CACHE = {}
+
 def _get_treatment_status() -> TreatmentStatus:
     "Finds a treatment variant for a a given sample."
     variants = list(FLAKY_WEIGHTS.keys())
@@ -24,6 +27,10 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
     """
 
     url = FRED_URL
+    # Cache and fetch previous requests when available
+    key = (series_id.upper(), date)
+    if key in _OBSERVATION_CACHE:
+        return _OBSERVATION_CACHE[key]
 
     params = {
         "series_id": series_id.upper(),
@@ -34,7 +41,6 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
     }
 
     async with httpx.AsyncClient() as client:
-        await asyncio.sleep(0.5)
         response = await client.get(url, params=params)
 
     if response.is_error:
@@ -52,7 +58,10 @@ async def _fred_observation_api_call(series_id: str, date: str) -> str | dict:
     except ValueError as e:
         return f"ValueError - returned value was not a float - error: {e}"
 
-    return {"returned_date": returned_date, "returned_value": value}
+    result = {"returned_date": returned_date, "returned_value": value}
+    _OBSERVATION_CACHE[key] = result
+
+    return result
 
 
 async def get_single_fred_value(series_id: str, date: str) -> str:
@@ -99,11 +108,12 @@ async def get_single_fred_value_flaky(series_id: str, date: str) -> str:
         A string listing the value for the series at the requested date.
     """
 
-    response = await _fred_observation_api_call(series_id=series_id, date=date)
     treatment_status = _get_treatment_status()
-
+    # 20% chance of getting an outright error
     if treatment_status == TreatmentStatus.ERROR:
         return "Server error, please re-try shortly."
+
+    response = await _fred_observation_api_call(series_id=series_id, date=date)
 
     # Return stringified error messages directly
     if isinstance(response, str):
@@ -131,6 +141,10 @@ async def _get_series_list(
     """
 
     url = "https://api.stlouisfed.org/fred/series/search"
+
+    key = (search_text.lower(), order_by.lower(), sort_order.lower())
+    if key in _SERIES_CACHE:
+        return _SERIES_CACHE[key]
 
     params = {
         "api_key": API_KEY,
@@ -178,6 +192,8 @@ async def _get_series_list(
         response_list.append(
             f"Series ID: {id} - Title: {title} - Observations from {obs_start} to {obs_end} - Frequency {freq} - Units {units} {adjust} - Popularity {popularity}"
         )
+
+    _SERIES_CACHE[key] = response_list
 
     return response_list
 
@@ -238,7 +254,6 @@ async def get_fred_series_list_flaky(
     """
 
     treatment_status = _get_treatment_status()
-
     # 20% chance of getting an outright error
     if treatment_status == TreatmentStatus.ERROR:
         return "Server error, please re-try shortly."
