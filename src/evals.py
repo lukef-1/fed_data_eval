@@ -18,7 +18,7 @@ from inspect_ai.tool import tool
 from scoring import (
     CLOSED_BOOK_PROMPT,
     TOOL_NO_ID_PROMPT,
-    TOOL_PROMPT,
+    TOOL_NO_ID_LOOSE_PROMPT,
     NoNumber,
     extract_number,
 )
@@ -172,6 +172,32 @@ def fred_api_test_custom_no_series_flaky():
         ),
         solver=[
             system_message(TOOL_NO_ID_PROMPT),
+            use_tools(search_fred_series_flaky(), call_fred_api_flaky()),
+            generate(),
+        ],
+        scorer=within_margin(),
+    )
+
+@task
+def fred_api_test_custom_no_series_flaky_loose():
+    return Task(
+        dataset=json_dataset(
+            "../questions.json",
+            FieldSpec(
+                input="input",
+                target="target",
+                id="question_id",
+                metadata=[
+                    "series_id",
+                    "series_name",
+                    "period_full",
+                    "tolerance",
+                    "test_type",
+                ],
+            ),
+        ),
+        solver=[
+            system_message(TOOL_NO_ID_LOOSE_PROMPT),
             use_tools(search_fred_series_flaky(), call_fred_api_flaky()),
             generate(),
         ],
