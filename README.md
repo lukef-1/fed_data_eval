@@ -2,7 +2,7 @@
 
 An LLM Evaluation using [Inspect AI](https://inspect.aisi.org.uk/) to measure how accurately models report US macroeconomic data from 2016 to 2026. Questions are generated using the [FRED API](https://fred.stlouisfed.org/docs/api/fred/).
 
-Write-ups describing this project and learnings: [Post 1](https://lukef-1.github.io/2026/09/05/learning-to-evaluate-pt-1.html)
+Write-ups describing this project and learnings: [part 1 (building the foundation)](https://lukef-1.github.io/2026/09/05/learning-to-evaluate-pt-1.html), and [part 2 (increasing eval task difficulty)](https://lukef-1.github.io/2026/09/15/learning-to-evaluate-pt-2.html).
 
 ## Repo structure
 
