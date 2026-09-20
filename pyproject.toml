@@ -12,6 +12,7 @@ dependencies = [
     "httpx>=0.28.1",
     "inspect-ai>=0.3.244",
     "ipykernel>=7.3.0",
+    "ipython>=9.15.0",
     "openai>=2.44.0",
     "pandas>=3.0.3",
     "pytest>=9.1.1",

@@ -4,9 +4,8 @@ import click
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import String, DateTime, Date
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import String, DateTime, Date, UniqueConstraint
 
 from datetime import datetime, date
 
@@ -26,7 +25,9 @@ class FREDObservation(db.Model):
     body: Mapped[str]
     fetched_at: Mapped[datetime] = mapped_column(DateTime)
 
-    # TODO: Require uniqueness across series_id, observation_start, and observation_end
+    __table_args__ = (
+        UniqueConstraint("series_id", "observation_start", "observation_end"),
+    )
 
 
 @click.command("init-db")
