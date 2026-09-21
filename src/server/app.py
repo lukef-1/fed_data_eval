@@ -10,11 +10,7 @@ from sqlalchemy import String, DateTime, Date, UniqueConstraint
 from datetime import datetime, date
 
 
-class Base(DeclarativeBase):
-    pass
-
-
-db = SQLAlchemy(model_class=Base)
+db = SQLAlchemy()
 
 
 class FREDObservation(db.Model):
@@ -54,6 +50,7 @@ def create_app():
         return jsonify({"status": "healthy"}), 200
 
     from . import fred
+
     app.register_blueprint(fred.bp)
 
     return app

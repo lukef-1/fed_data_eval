@@ -178,6 +178,7 @@ def fred_api_test_custom_no_series_flaky():
         scorer=within_margin(),
     )
 
+
 @task
 def fred_api_test_custom_no_series_flaky_loose():
     return Task(
