@@ -4,6 +4,8 @@ from sqlalchemy.exc import IntegrityError
 import httpx
 import json
 
+from faults import TreatmentStatus, FLAKY_WEIGHTS
+
 from time import sleep
 from datetime import datetime, date, timezone
 
